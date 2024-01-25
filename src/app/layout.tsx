@@ -6,7 +6,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Transitt",
-  description: "Transitt is a transit app for the public transportation system in Switzerland.",
+  description:
+    "Transitt is a transit app for the public transportation system in Switzerland.",
 };
 
 export default function RootLayout({
@@ -16,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.className} bg-gray-600`}>{children}</body>
     </html>
   );
 }
