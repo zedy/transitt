@@ -1,12 +1,13 @@
 import Header from "@/app/_components/header";
+import Main from "@/app/_components/main";
 
 export default function Home() {
   return (
     <>
       <Header />
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <p>CODE GOES HERE!</p>
-      </main>
+      <Main>
+        <p>code goes here</p>
+      </Main>
     </>
   );
 }
