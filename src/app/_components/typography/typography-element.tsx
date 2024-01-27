@@ -1,4 +1,5 @@
 import React from "react";
+import classParser from "@/app/_lib/class-parser";
 
 export enum TypographyType {
   H1 = "h1",
@@ -16,21 +17,18 @@ const DEFAULT_TEXT_SIZE = "text-base";
 export default function Typography({
   children,
   component,
-  styles,
   isSr = false,
   classes = "",
 }: Readonly<{
   children: React.ReactNode;
   component: TypographyType;
-  styles?: React.CSSProperties;
   isSr?: boolean;
   classes?: string;
 }>) {
-  const classNames = `${DEFAULT_TEXT_SIZE} ${isSr ? "sr-only" : ""} ${classes}`;
-
-  return React.createElement(
-    component,
-    { style: styles, className: classNames },
-    children,
+  const classNames = classParser(
+    DEFAULT_TEXT_SIZE,
+    `${isSr ? "sr-only" : ""} ${classes}`,
   );
+
+  return React.createElement(component, { className: classNames }, children);
 }

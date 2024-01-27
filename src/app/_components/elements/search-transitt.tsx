@@ -1,4 +1,4 @@
-import SearchConnectionsForm from "@/app/_components/forms/search-connections.form";
+import SearchConnections from "@/app/_components/elements/search-connections";
 import Section from "@/app/_components/layout/section";
 import Typography, {
   TypographyType,
@@ -6,17 +6,17 @@ import Typography, {
 
 export default function SearchTransitt() {
   return (
-    <Section>
+    <Section classes="flex-col">
       <Typography component={TypographyType.H1} isSr>
         Transitt - explore Switzerland
       </Typography>
       <Typography component={TypographyType.H2} isSr>
         Search timetable and purhcase tickets
       </Typography>
-      <Typography component={TypographyType.H2}>
-        Where are you going to?
+      <Typography component={TypographyType.H2} classes="text-center">
+        Can we help you plan your route?
       </Typography>
-      <SearchConnectionsForm />
+      <SearchConnections />
     </Section>
   );
 }
