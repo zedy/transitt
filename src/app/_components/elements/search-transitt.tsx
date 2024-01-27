@@ -1,5 +1,8 @@
-import Section from "../layout/section";
-import Typography, { TypographyType } from "../typography/typography-element";
+import SearchConnectionsForm from "@/app/_components/forms/search-connections.form";
+import Section from "@/app/_components/layout/section";
+import Typography, {
+  TypographyType,
+} from "@/app/_components/typography/typography-element";
 
 export default function SearchTransitt() {
   return (
@@ -13,7 +16,7 @@ export default function SearchTransitt() {
       <Typography component={TypographyType.H2}>
         Where are you going to?
       </Typography>
-      TODO: immplement search form component here
+      <SearchConnectionsForm />
     </Section>
   );
 }
