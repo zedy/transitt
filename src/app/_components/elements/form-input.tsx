@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import classParser from "@/app/_lib/class-parser";
-import { useState } from "react";
 import { useController } from "react-hook-form";
+import useFocusElement from "@/app/_hooks/use-focus-element";
 
 type InputProperties = {
   name: string;
@@ -20,7 +20,7 @@ export default function Input({
   defaultValue = "",
   ...properties
 }: InputProperties) {
-  const [focus, setFocus] = useState<boolean>(false);
+  const { focus, onFocus, onBlur } = useFocusElement();
   const {
     field: { ref, ...inputProperties },
     fieldState: { invalid, isTouched, isDirty },
@@ -33,11 +33,7 @@ export default function Input({
   const classes = classParser(DEFAULT_CLASS, className);
 
   return (
-    <div
-      className={classes}
-      onFocus={() => setFocus(true)}
-      onBlur={() => setFocus(false)}
-    >
+    <div className={classes} onFocus={onFocus} onBlur={onBlur}>
       <input
         {...inputProperties}
         {...properties}
