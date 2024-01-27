@@ -1,12 +1,16 @@
 import Header from "@/app/_components/header";
-import Main from "@/app/_components/main";
+import Main from "@/app/_components/layout/main";
+import SearchTransitt from "@/app/_components/elements/search-transitt";
+import Container from "@/app/_components/layout/container";
 
 export default function Home() {
   return (
     <>
       <Header />
       <Main>
-        <p>code goes here</p>
+        <Container>
+          <SearchTransitt />
+        </Container>
       </Main>
     </>
   );
