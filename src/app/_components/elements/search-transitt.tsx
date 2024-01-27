@@ -3,8 +3,12 @@ import Section from "@/app/_components/layout/section";
 import Typography, {
   TypographyType,
 } from "@/app/_components/typography/typography-element";
+import TimeTable from "@/app/_components/time-table";
+import getTransitRoute from "@/app/_services/transit-service";
 
-export default function SearchTransitt() {
+export default async function SearchTransitt() {
+  const transitData = await getTransitRoute();
+
   return (
     <Section classes="flex-col">
       <Typography component={TypographyType.H1} isSr>
@@ -17,6 +21,7 @@ export default function SearchTransitt() {
         Can we help you plan your route?
       </Typography>
       <SearchConnections />
+      <TimeTable transitData={transitData} />
     </Section>
   );
 }
