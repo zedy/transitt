@@ -4,6 +4,8 @@ import { type FieldValues, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Input from "@/app/_components/elements/form-input";
+import { CloseOutlined } from "@ant-design/icons";
+import Button from "../elements/button";
 
 export interface FormData extends FieldValues {
   from: string;
@@ -18,12 +20,7 @@ export const schemaValidation = yup
   .required();
 
 export default function SearchConnectionsForm() {
-  const {
-    control,
-    reset,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>({
+  const { control, reset, handleSubmit } = useForm<FormData>({
     resolver: yupResolver(schemaValidation),
   });
 
@@ -31,14 +28,15 @@ export default function SearchConnectionsForm() {
     console.log(data);
   };
 
-  // if (errors?.content?.message) {
-  //   toast.error(errors.content.message);
-  // }
+  const handleReset = () => {
+    // additional logic here
+    reset();
+  };
 
   return (
     <form
       onSubmit={handleSubmit(onFormSubmit)}
-      className="flex w-full flex-col"
+      className="relative flex w-full flex-col"
     >
       <Input
         label="From"
@@ -48,6 +46,11 @@ export default function SearchConnectionsForm() {
         defaultValue="123"
       />
       <Input label="To" name="to" control={control} className="mb-1" />
+      <Button
+        icon={<CloseOutlined style={{ color: "black" }} />}
+        handleClick={handleReset}
+        className="absolute right-8 top-8 z-30 h-9 w-9 rounded-full bg-slate-400 shadow-lg drop-shadow-md"
+      />
     </form>
   );
 }

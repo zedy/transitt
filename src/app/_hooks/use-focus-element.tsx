@@ -5,10 +5,14 @@ export default function useFocusElement() {
 
   const onFocus = () => setFocus(true);
   const onBlur = () => setFocus(false);
+  const onHasValue = () => setFocus(true);
+  const onHasNoValue = () => setFocus(false);
 
   return {
     focus,
     onFocus,
     onBlur,
+    onHasValue,
+    onHasNoValue,
   };
 }

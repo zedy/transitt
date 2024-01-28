@@ -8,7 +8,7 @@
  */
 export default function classParser(
   defaultClass: string,
-  additional: string,
+  additional: string | undefined,
 ): string {
   if (additional) {
     return `${defaultClass} ${additional}`;
