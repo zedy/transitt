@@ -1,9 +1,14 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { type FieldValues, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Input from "@/app/_components/elements/form-input";
+
+export interface FormData extends FieldValues {
+  from: string;
+  to: string;
+}
 
 export const schemaValidation = yup
   .object({
@@ -35,8 +40,14 @@ export default function SearchConnectionsForm() {
       onSubmit={handleSubmit(onFormSubmit)}
       className="flex w-full flex-col"
     >
-      <Input label="From" name="from" control={control} className="mb-3" />
-      <Input label="To" name="to" control={control} />
+      <Input
+        label="From"
+        name="from"
+        control={control}
+        className="mb-3"
+        defaultValue="123"
+      />
+      <Input label="To" name="to" control={control} className="mb-1" />
     </form>
   );
 }

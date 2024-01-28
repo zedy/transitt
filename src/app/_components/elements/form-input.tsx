@@ -1,43 +1,70 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import classParser from "@/app/_lib/class-parser";
-import { useController } from "react-hook-form";
+import {
+  type Control,
+  useController,
+  type UseControllerProps,
+} from "react-hook-form";
 import useFocusElement from "@/app/_hooks/use-focus-element";
+import { useEffect, useState } from "react";
+import { type FormData } from "@/app/_components/forms/search-connections.form";
 
-type InputProperties = {
-  name: string;
-  control: any;
+interface InputProperties<T> extends UseControllerProps<FormData, string> {
   label: string;
-  defaultValue?: string;
-  [x: string]: any;
-};
+  className: string;
+  control: Control<FormData, T>;
+}
 
 const DEFAULT_CLASS = "relative";
 
-export default function Input({
+export default function Input<T>({
   name,
   label,
   control,
-  defaultValue = "",
+  defaultValue,
   ...properties
-}: InputProperties) {
-  const { focus, onFocus, onBlur } = useFocusElement();
+}: InputProperties<T>) {
+  const { focus, onFocus, onBlur, onHasValue } = useFocusElement();
+  const [value, setValue] = useState<string>("");
   const {
-    field: { ref, ...inputProperties },
+    field: { ref, onChange, ...inputProperties },
     fieldState: { invalid, isTouched, isDirty },
   } = useController({
     name,
     control,
-    defaultValue,
+    rules: { required: true },
   });
   const { className } = properties;
   const classes = classParser(DEFAULT_CLASS, className);
 
+  useEffect(() => {
+    setValue((state) => {
+      if (defaultValue) {
+        onHasValue();
+        return defaultValue;
+      }
+
+      return state;
+    });
+  }, []);
+
+  const handleOnChange = (event: React.BaseSyntheticEvent) => {
+    onChange(event);
+    setValue(event.target.value);
+  };
+
+  const handleOnBlur = () => {
+    if (!value) onBlur();
+  };
+
   return (
-    <div className={classes} onFocus={onFocus} onBlur={onBlur}>
+    <div className={classes} onFocus={onFocus} onBlur={handleOnBlur}>
       <input
         {...inputProperties}
         {...properties}
+        onChange={handleOnChange}
         ref={ref}
+        value={value}
         type="input"
         className="relative z-10 block w-full appearance-none rounded-t-lg border-0 border-b-2 border-b-slate-400 bg-transparent px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:text-white dark:focus:border-blue-500"
       />
