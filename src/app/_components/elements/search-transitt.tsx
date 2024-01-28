@@ -1,13 +1,14 @@
+import { Suspense } from "react";
 import SearchConnections from "@/app/_components/elements/search-connections";
 import Section from "@/app/_components/layout/section";
 import Typography, {
   TypographyType,
 } from "@/app/_components/typography/typography-element";
 import TimeTable from "@/app/_components/time-table";
-import getTransitRoute from "@/app/_services/transit-service";
+import getTransitRoute from "@/app/_services/get-transit-route";
 
 export default async function SearchTransitt() {
-  const transitData = await getTransitRoute();
+  // const transitData = await getTransitRoute();
 
   return (
     <Section classes="flex-col">
@@ -17,11 +18,14 @@ export default async function SearchTransitt() {
       <Typography component={TypographyType.H2} isSr>
         Search timetable and purhcase tickets
       </Typography>
-      <Typography component={TypographyType.H2} classes="text-center">
+      <Typography
+        component={TypographyType.H2}
+        classes="text-center text-lg my-10"
+      >
         Can we help you plan your route?
       </Typography>
       <SearchConnections />
-      <TimeTable transitData={transitData} />
+      <TimeTable />
     </Section>
   );
 }
