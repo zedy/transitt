@@ -2,7 +2,8 @@ import classParser from "@/app/_lib/class-parser";
 
 type ButtonProperties = {
   children?: React.ReactNode;
-  handleClick?: () => void;
+  onClick?: (event: React.BaseSyntheticEvent) => void;
+  onMouseDown?: (event: React.BaseSyntheticEvent) => void;
   icon?: React.ReactNode | undefined;
   className?: string;
 };
@@ -14,11 +15,13 @@ export default function Button({
   children,
   icon,
   className,
-  handleClick,
+  onMouseDown,
+  onClick,
 }: ButtonProperties) {
   return (
     <button
-      onClick={handleClick}
+      onClick={onClick}
+      onMouseDown={onMouseDown}
       type="button"
       className={classParser(DEFAULT_CLASS, className)}
     >

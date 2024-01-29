@@ -1,89 +1,68 @@
 "use client";
 
 /* eslint-disable react/jsx-props-no-spreading */
+import type React from "react";
 import { useCallback, useContext } from "react";
 import classParser from "@/app/_lib/class-parser";
-import {
-  type Control,
-  useController,
-  type UseControllerProps,
-  type UseFormSetValue,
-} from "react-hook-form";
-import useFocusElement from "@/app/_hooks/use-focus-element";
-import { type FormData } from "@/app/_components/forms/search-connections.form";
 import { CloseOutlined } from "@ant-design/icons";
 import { SearchContext } from "@/app/_context/search-context";
+import useDebounce from "@/app/_hooks/use-debounce";
+import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
+import getLocation from "@/app/_services/get-location";
 import Button from "./button";
 
-interface InputProperties<T> extends UseControllerProps<FormData, string> {
+interface InputProperties {
   label: string;
   className?: string;
-  setValue: UseFormSetValue<FormData>;
-  control: Control<FormData, T>;
+  value: string;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const DEFAULT_CLASS = "relative";
+const DEFAULT_CLASS = "relative z-1";
 
-export default function Input<T>({
-  name,
+export default function Input({
   label,
-  control,
+  value,
   setValue,
   ...properties
-}: InputProperties<T>) {
-  const { focus, onFocus, onBlur } = useFocusElement();
-  const { setShowLocations } = useContext(SearchContext);
-
-  const {
-    field: { ref, onChange, value, ...inputProperties },
-    fieldState: { invalid, isTouched, isDirty },
-  } = useController({
-    name,
-    control,
-    rules: { required: true },
-  });
+}: InputProperties) {
+  const { setShowLocations, setSearchValue } = useContext(SearchContext);
   const { className } = properties;
   const classes = classParser(DEFAULT_CLASS, className);
 
-  const handleOnChange = (event: React.BaseSyntheticEvent) => {
-    onChange(event);
+  const handleOnChange = async (event: React.BaseSyntheticEvent) => {
+    setValue(event.target.value);
+    setSearchValue(event.target.value);
   };
 
-  const handleOnBlur = useCallback(() => {
-    if (!value) onBlur();
+  const handleOnBlur = useCallback((event: React.BaseSyntheticEvent) => {
+    event.preventDefault();
 
-    setShowLocations(false);
-  }, [value]);
-
-  const handleReset = useCallback(() => {
-    setValue(name, "");
+    setShowLocations("");
   }, []);
 
-  const handleOnFocus = useCallback(() => {
-    onFocus();
-    setShowLocations(true);
+  const handleReset = useCallback((event: React.BaseSyntheticEvent) => {
+    event.preventDefault();
+    setValue("");
   }, []);
 
   return (
-    <div className={classes} onFocus={handleOnFocus} onBlur={handleOnBlur}>
+    <div className={classes}>
       <input
-        {...inputProperties}
         {...properties}
         onChange={handleOnChange}
-        ref={ref}
+        onBlur={handleOnBlur}
+        onFocus={() => setShowLocations(label)}
+        value={value}
+        placeholder={label}
         type="input"
-        className="relative z-10 block w-full appearance-none rounded-t-lg border-0 border-b-[1px] border-b-slate-400 bg-transparent p-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:text-white dark:focus:border-blue-500"
+        autoComplete="off"
+        className="peer relative z-10 block w-full appearance-none rounded-t-lg border-0 border-b-[1px] border-b-slate-400 bg-transparent p-5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:text-white dark:focus:border-blue-500"
       />
-      <label
-        htmlFor={name}
-        className={`z-1 absolute start-5 top-3 origin-[0] transform py-2 text-sm text-gray-500 duration-300 peer-focus:-translate-y-3 peer-focus:scale-75 peer-focus:text-blue-600 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4 dark:text-gray-400 peer-focus:dark:text-blue-500 ${focus ? "-translate-y-4 scale-75" : ""}`}
-      >
-        {label}
-      </label>
       <Button
         icon={<CloseOutlined style={{ color: "white" }} />}
-        handleClick={handleReset}
-        className="absolute right-5 top-5 z-30 rounded-full"
+        onMouseDown={handleReset}
+        className="absolute right-5 top-4 z-30 hidden rounded-full peer-focus:block"
       />
     </div>
   );
