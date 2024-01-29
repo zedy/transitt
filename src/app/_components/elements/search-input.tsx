@@ -26,24 +26,43 @@ export default function Input({
   setValue,
   ...properties
 }: InputProperties) {
-  const { setShowLocations, setSearchValue } = useContext(SearchContext);
+  // const { setShowLocations, setSearchValue } = useContext(SearchContext);
+  const { dispatch } = useContext(SearchContext);
   const { className } = properties;
   const classes = classParser(DEFAULT_CLASS, className);
 
   const handleOnChange = async (event: React.BaseSyntheticEvent) => {
     setValue(event.target.value);
-    setSearchValue(event.target.value);
+    // setSearchValue(event.target.value);
+    dispatch({
+      type: "searchValue",
+      payload: {
+        searchValue: event.target.value,
+      },
+    });
   };
-
-  const handleOnBlur = useCallback((event: React.BaseSyntheticEvent) => {
-    event.preventDefault();
-
-    setShowLocations("");
-  }, []);
 
   const handleReset = useCallback((event: React.BaseSyntheticEvent) => {
     event.preventDefault();
     setValue("");
+  }, []);
+
+  const handleLocationToggle = useCallback((searchValue: string) => {
+    dispatch({
+      type: "showLocations",
+      payload: {
+        showLocations: searchValue,
+      },
+    });
+  }, []);
+
+  const handleOnBlur = useCallback((event: React.BaseSyntheticEvent) => {
+    event.preventDefault();
+
+    setTimeout(() => {
+      // setShowLocations("");
+      handleLocationToggle("");
+    }, 0);
   }, []);
 
   return (
@@ -52,7 +71,7 @@ export default function Input({
         {...properties}
         onChange={handleOnChange}
         onBlur={handleOnBlur}
-        onFocus={() => setShowLocations(label)}
+        onFocus={() => handleLocationToggle(label)}
         value={value}
         placeholder={label}
         type="input"

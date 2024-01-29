@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Input from "@/app/_components/elements/form-input";
+import Input from "@/app/_components/elements/search-input";
 
 export default function SearchInputWrapper({ name }: { name: string }) {
   const [value, setValue] = useState<string>("");

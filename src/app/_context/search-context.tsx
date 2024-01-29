@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 
 export type LocationDataItem = {
   [key: string]: string | number;
@@ -8,17 +8,71 @@ export type LocationDataItem = {
 
 export type LocationData = Array<LocationDataItem> | undefined;
 
-type ContextProperties = {
-  searchValue: string;
-  setSearchValue: React.Dispatch<React.SetStateAction<string>>;
+type Action = {
+  type: string;
+  payload: {
+    [key: string]: string;
+  };
+};
+
+type StateProperties = {
+  search: {
+    from: string;
+    to: string;
+    date: string;
+    time: string;
+  };
   showLocations: string;
-  setShowLocations: React.Dispatch<React.SetStateAction<string>>;
+  searchValue: string;
+};
+
+type ContextProperties = {
+  state: StateProperties;
+  dispatch: React.Dispatch<Action>;
 };
 
 const initialContext = {} as ContextProperties;
+
 const INITIAL_STATE = {
+  search: {
+    from: "",
+    to: "",
+    date: "",
+    time: "",
+  },
   showLocations: "",
   searchValue: "",
+};
+
+const contextReducer = (state: StateProperties, action: Action) => {
+  switch (action.type) {
+    case "searchValue": {
+      return {
+        ...state,
+        searchValue: action.payload?.searchValue,
+      };
+    }
+    case "showLocations": {
+      return {
+        ...state,
+        showLocations: action.payload?.showLocations,
+      };
+    }
+    case "locationSelection": {
+      const key = state.showLocations.toLowerCase();
+
+      return {
+        ...state,
+        search: {
+          ...state.search,
+          [key]: action.payload?.name,
+        },
+      };
+    }
+    default: {
+      return state;
+    }
+  }
 };
 
 export const SearchContext = React.createContext(initialContext);
@@ -28,20 +82,14 @@ export function SearchContextProvider({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [showLocations, setShowLocations] = useState<string>(
-    INITIAL_STATE.showLocations,
-  );
-  const [searchValue, setSearchValue] = useState<string>(
-    INITIAL_STATE.searchValue,
-  );
+  const [state, dispatch] = useReducer(contextReducer, INITIAL_STATE);
+
   const provide = React.useMemo(
     () => ({
-      searchValue,
-      setSearchValue,
-      showLocations,
-      setShowLocations,
+      state,
+      dispatch,
     }),
-    [showLocations, setShowLocations, searchValue, setSearchValue],
+    [state, dispatch],
   );
 
   return (

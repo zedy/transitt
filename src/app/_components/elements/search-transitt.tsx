@@ -1,15 +1,12 @@
-import { Suspense } from "react";
 import SearchConnections from "@/app/_components/elements/search-connections";
 import Section from "@/app/_components/layout/section";
 import Typography, {
   TypographyType,
 } from "@/app/_components/typography/typography-element";
 import TimeTable from "@/app/_components/time-table";
-import getTransitRoute from "@/app/_services/get-transit-route";
+import { SearchContextProvider } from "@/app/_context/search-context";
 
 export default async function SearchTransitt() {
-  // const transitData = await getTransitRoute();
-
   return (
     <Section classes="flex-col">
       <Typography component={TypographyType.H1} isSr>
@@ -24,8 +21,10 @@ export default async function SearchTransitt() {
       >
         Can we help you plan your route?
       </Typography>
-      <SearchConnections />
-      <TimeTable />
+      <SearchContextProvider>
+        <SearchConnections />
+        <TimeTable />
+      </SearchContextProvider>
     </Section>
   );
 }

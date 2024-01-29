@@ -1,21 +1,22 @@
 "use client";
 
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import getTransitRoute from "@/app/_services/get-transit-route";
-import { Suspense } from "react";
+import { useContext } from "react";
+import { SearchContext } from "@/app/_context/search-context";
 
-type TimeTableProperties = {
-  transitData?: any;
-};
+export default function TimeTable() {
+  const { state } = useContext(SearchContext);
 
-export default function TimeTable({ transitData }: TimeTableProperties) {
-  // const { data } = useSuspenseQuery({
+  // const { data } = useQuery({
   //   queryKey: ["transitData"],
-  //   queryFn: () => getTransitRoute(),
+  //   queryFn: () => getTransitRoute(from, to),
   //   initialData: [],
+  //   enabled: !!from && !!to,
   // });
-
   // console.log("time table data:", data);
+
+  console.log("state:", state);
 
   return (
     <div className="mt-20">
