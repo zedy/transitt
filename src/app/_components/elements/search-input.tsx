@@ -6,9 +6,6 @@ import { useCallback, useContext } from "react";
 import classParser from "@/app/_lib/class-parser";
 import { CloseOutlined } from "@ant-design/icons";
 import { SearchContext } from "@/app/_context/search-context";
-import useDebounce from "@/app/_hooks/use-debounce";
-import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
-import getLocation from "@/app/_services/get-location";
 import Button from "./button";
 
 interface InputProperties {
@@ -26,14 +23,12 @@ export default function Input({
   setValue,
   ...properties
 }: InputProperties) {
-  // const { setShowLocations, setSearchValue } = useContext(SearchContext);
   const { dispatch } = useContext(SearchContext);
   const { className } = properties;
   const classes = classParser(DEFAULT_CLASS, className);
 
   const handleOnChange = async (event: React.BaseSyntheticEvent) => {
     setValue(event.target.value);
-    // setSearchValue(event.target.value);
     dispatch({
       type: "searchValue",
       payload: {
@@ -60,7 +55,6 @@ export default function Input({
     event.preventDefault();
 
     setTimeout(() => {
-      // setShowLocations("");
       handleLocationToggle("");
     }, 0);
   }, []);

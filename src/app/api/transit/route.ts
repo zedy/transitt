@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const from = searchParams.get("from");
   const to = searchParams.get("to");
-  let date = searchParams.get("to");
+  let date = searchParams.get("date");
   let time = searchParams.get("time");
 
   if (!from && !to) {
@@ -19,6 +19,10 @@ export async function GET(request: NextRequest) {
   if (!date) {
     const now = new Date();
     date = dayjs(now).format("YYYY-MM-DD");
+  }
+
+  if (!time) {
+    const now = new Date();
     time = dayjs(now).format("HH:mm");
   }
 
@@ -35,7 +39,5 @@ export async function GET(request: NextRequest) {
     },
   });
 
-  // console.log(fetchResult);
-
-  return new Response(fetchResult);
+  return Response.json({ ...fetchResult });
 }

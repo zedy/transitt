@@ -4,6 +4,6 @@ export default function RoundedBox({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="relative rounded-2xl bg-gray-700 shadow">{children}</div>
+    <div className="relative rounded-2xl bg-gray-700 shadow-lg">{children}</div>
   );
 }

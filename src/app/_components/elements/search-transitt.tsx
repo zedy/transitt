@@ -3,8 +3,8 @@ import Section from "@/app/_components/layout/section";
 import Typography, {
   TypographyType,
 } from "@/app/_components/typography/typography-element";
-import TimeTable from "@/app/_components/time-table";
 import { SearchContextProvider } from "@/app/_context/search-context";
+import TimeTable from "@/app/_components/time-table";
 
 export default async function SearchTransitt() {
   return (
