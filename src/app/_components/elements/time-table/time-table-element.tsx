@@ -5,13 +5,14 @@ import {
   createKeyFromProperties,
   getTime,
 } from "@/app/_lib/transit-route-helpers";
+import Image from "next/image";
 import TimeTableJourneytRoute from "./time-table-journeyt-route";
 import FlexWrapper from "../flex-wrapper";
 import Typography, {
   TypographyType,
 } from "../../typography/typography-element";
 
-// TODO: integrate icons
+// TODO: do i need this?
 const TRAIN_CATEGORIES = [
   "ice",
   "ic",
@@ -28,6 +29,25 @@ const TRAIN_CATEGORIES = [
   "ext",
 ];
 
+function getTransportCategoryIcon(category: string) {
+  switch (category) {
+    case "B": {
+      return "bus";
+    }
+    case "T":
+    case "F":
+    case "C": {
+      return "tram";
+    }
+    case "S": {
+      return "ship";
+    }
+    default: {
+      return "train";
+    }
+  }
+}
+
 // TODO: typesafety
 export default function TimeTableElement({ data }) {
   return (
@@ -41,6 +61,13 @@ export default function TimeTableElement({ data }) {
           >
             <FlexWrapper justifyContent="between">
               <FlexWrapper>
+                <Image
+                  src={`/${getTransportCategoryIcon(item.sections[0].journey.category)}.svg`}
+                  alt="transport-icon"
+                  width={24}
+                  height={24}
+                  className="mr-2 h-6 w-6"
+                />
                 <Typography component={TypographyType.SPAN} classes="w-14">
                   {item.products[0]}
                 </Typography>
@@ -64,7 +91,7 @@ export default function TimeTableElement({ data }) {
                 {getTime(item.to.arrival)}
               </Typography>
             </FlexWrapper>
-            <FlexWrapper justifyContent="between">
+            <FlexWrapper classes="justify-between">
               <Typography component={TypographyType.SPAN}>
                 Platform {item.from.platform}
               </Typography>

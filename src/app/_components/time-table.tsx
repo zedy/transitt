@@ -23,7 +23,7 @@ export default function TimeTable() {
       return connections;
     },
   });
-
+console.log(data);
   if (isFetching) {
     return <LoadingSceleton caller={4} />;
   }

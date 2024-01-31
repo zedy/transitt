@@ -23,7 +23,6 @@ export default function AntDTimePicker({
       onChange={onChange}
       defaultValue={dayjs(timeNow, "HH:mm")}
       format="HH:mm"
-      size="large"
       suffixIcon={<ClockCircleOutlined style={{ color: "white" }} />}
       style={{
         backgroundColor: "transparent",

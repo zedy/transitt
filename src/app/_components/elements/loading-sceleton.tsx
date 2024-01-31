@@ -24,7 +24,7 @@ function Sceleton() {
         <div className="mx-3 h-2 w-full rounded-lg bg-gray-500" />
         <div className="h-3 w-12 rounded-lg bg-gray-500" />
       </FlexWrapper>
-      <FlexWrapper justifyContent="between" classes="animate-pulse">
+      <FlexWrapper classes="animate-pulse justify-between">
         <div className="h-3 w-24 rounded-lg bg-gray-500" />
         <div className="h-3 w-24 rounded-lg bg-gray-500" />
       </FlexWrapper>
