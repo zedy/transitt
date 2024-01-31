@@ -43,7 +43,7 @@ function CalculateRouteAndTrasnfers({ item }) {
   if (transfers > 0) {
     for (let index = 0; index < transfers; index += 1) {
       transferSegments.push(
-        <Transfer position={transferPointPositions[index]} />,
+        <Transfer key={index} position={transferPointPositions[index]} />,
       );
     }
   }

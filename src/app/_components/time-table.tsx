@@ -12,7 +12,7 @@ export default function TimeTable() {
   } = useContext(SearchContext);
   const { from, to } = search;
 
-  const { data } = useQuery({
+  const { data, isFetching } = useQuery({
     queryKey: ["transitData", from, to],
     queryFn: () => getTransitRoute(search),
     enabled: !!from && !!to,
@@ -22,6 +22,8 @@ export default function TimeTable() {
       return connections;
     },
   });
+
+  console.log(isFetching);
 
   return <TimeTableElement data={data} />;
 }

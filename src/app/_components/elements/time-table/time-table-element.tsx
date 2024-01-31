@@ -3,11 +3,13 @@
 import {
   calculateJourneyTime,
   createKeyFromProperties,
-  parseStrings,
   getTime,
 } from "@/app/_lib/transit-route-helpers";
 import TimeTableJourneytRoute from "./time-table-journeyt-route";
 import FlexWrapper from "../flex-wrapper";
+import Typography, {
+  TypographyType,
+} from "../../typography/typography-element";
 
 // TODO: integrate icons
 const TRAIN_CATEGORIES = [
@@ -31,10 +33,6 @@ export default function TimeTableElement({ data }) {
   return (
     <FlexWrapper flexDirection="col" classes="mt-10">
       {data?.map((item) => {
-        const totalJourneyTime = calculateJourneyTime(
-          item.from.departure,
-          item.to.arrival,
-        );
         return (
           <FlexWrapper
             flexDirection="col"
@@ -43,30 +41,33 @@ export default function TimeTableElement({ data }) {
           >
             <FlexWrapper justifyContent="between">
               <FlexWrapper>
-                <span
-                  key={parseStrings(item.products[0])}
-                  className="block w-14"
-                >
+                <Typography component={TypographyType.SPAN}>
                   {item.products[0]}
-                </span>
-                <span className="direction">
+                </Typography>
+                <Typography component={TypographyType.SPAN}>
                   Direction {item.sections[0].journey.to}
-                </span>
+                </Typography>
               </FlexWrapper>
-              <span className="duration">{totalJourneyTime}</span>
+              <Typography component={TypographyType.SPAN}>
+                {calculateJourneyTime(item.from.departure, item.to.arrival)}
+              </Typography>
             </FlexWrapper>
             <FlexWrapper justifyContent="between">
-              <span className="departure">{getTime(item.from.departure)}</span>
+              <Typography component={TypographyType.SPAN}>
+                {getTime(item.from.departure)}
+              </Typography>
               <TimeTableJourneytRoute item={item} />
-              <span className="arrival">{getTime(item.to.arrival)}</span>
+              <Typography component={TypographyType.SPAN}>
+                {getTime(item.to.arrival)}
+              </Typography>
             </FlexWrapper>
             <FlexWrapper justifyContent="between">
-              <span className="platform-departure">
+              <Typography component={TypographyType.SPAN}>
                 Platform {item.from.platform}
-              </span>
-              <span className="platform-arrival">
+              </Typography>
+              <Typography component={TypographyType.SPAN}>
                 Platform {item.to.platform}
-              </span>
+              </Typography>
             </FlexWrapper>
           </FlexWrapper>
         );

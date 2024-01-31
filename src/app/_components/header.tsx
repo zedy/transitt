@@ -1,10 +1,16 @@
 import Image from "next/image";
+import FlexWrapper from "./elements/flex-wrapper";
+import Typography, { TypographyType } from "./typography/typography-element";
 
 export default function Header() {
   return (
     <header className="flex items-center justify-center bg-gray-800 p-4 text-white">
-      <div className="flex w-full items-center justify-between md:max-w-3xl">
-        <div className="flex items-center">
+      <FlexWrapper
+        alignItems="center"
+        justifyContent="between"
+        classes="md:max-w-3xl"
+      >
+        <FlexWrapper alignItems="center">
           <Image
             src="/logo.svg"
             alt="Logo"
@@ -12,10 +18,15 @@ export default function Header() {
             height={32}
             className="mr-2 h-8 w-8"
           />
-          <span className="text-lg font-bold">Transitt</span>
-        </div>
+          <Typography
+            classes="text-lg font-bold"
+            component={TypographyType.SPAN}
+          >
+            Transitt
+          </Typography>
+        </FlexWrapper>
         <div>test</div>
-      </div>
+      </FlexWrapper>
     </header>
   );
 }
