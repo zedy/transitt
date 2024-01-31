@@ -1,5 +1,3 @@
-import classParser from "@/app/_lib/class-parser";
-
 type FlexWrapperProperties = {
   children: React.ReactNode;
   flexDirection?: "row" | "col";
@@ -16,7 +14,6 @@ export default function FlexWrapper({
   alignItems = "start",
 }: FlexWrapperProperties) {
   const flexClass = `w-full h-auto flex flex-${flexDirection} justify-${justifyContent} items-${alignItems}`;
-  const className = classParser(flexClass, classes);
 
-  return <div className={className}>{children}</div>;
+  return <div className={`${flexClass} ${classes}`}>{children}</div>;
 }

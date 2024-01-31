@@ -5,6 +5,7 @@ import Typography, {
 } from "@/app/_components/typography/typography-element";
 import { SearchContextProvider } from "@/app/_context/search-context";
 import TimeTable from "@/app/_components/time-table";
+import Divider from "@/app/_components/elements/divider";
 
 export default async function SearchTransitt() {
   return (
@@ -23,6 +24,7 @@ export default async function SearchTransitt() {
       </Typography>
       <SearchContextProvider>
         <SearchConnections />
+        <Divider margin="30px 0" />
         <TimeTable />
       </SearchContextProvider>
     </Section>

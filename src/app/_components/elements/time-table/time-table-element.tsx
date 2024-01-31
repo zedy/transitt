@@ -31,7 +31,7 @@ const TRAIN_CATEGORIES = [
 // TODO: typesafety
 export default function TimeTableElement({ data }) {
   return (
-    <FlexWrapper flexDirection="col" classes="mt-10">
+    <FlexWrapper flexDirection="col">
       {data?.map((item) => {
         return (
           <FlexWrapper
@@ -41,18 +41,21 @@ export default function TimeTableElement({ data }) {
           >
             <FlexWrapper justifyContent="between">
               <FlexWrapper>
-                <Typography component={TypographyType.SPAN}>
+                <Typography component={TypographyType.SPAN} classes="w-14">
                   {item.products[0]}
                 </Typography>
                 <Typography component={TypographyType.SPAN}>
                   Direction {item.sections[0].journey.to}
                 </Typography>
               </FlexWrapper>
-              <Typography component={TypographyType.SPAN}>
+              <Typography
+                component={TypographyType.SPAN}
+                classes="w-24 text-right"
+              >
                 {calculateJourneyTime(item.from.departure, item.to.arrival)}
               </Typography>
             </FlexWrapper>
-            <FlexWrapper justifyContent="between">
+            <FlexWrapper justifyContent="between" classes="my-2">
               <Typography component={TypographyType.SPAN}>
                 {getTime(item.from.departure)}
               </Typography>

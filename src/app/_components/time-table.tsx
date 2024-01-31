@@ -5,6 +5,7 @@ import getTransitRoute from "@/app/_services/get-transit-route";
 import { useContext } from "react";
 import { SearchContext } from "@/app/_context/search-context";
 import TimeTableElement from "./elements/time-table/time-table-element";
+import LoadingSceleton from './elements/loading-sceleton';
 
 export default function TimeTable() {
   const {
@@ -23,7 +24,9 @@ export default function TimeTable() {
     },
   });
 
-  console.log(isFetching);
+  if (isFetching) {
+    return <LoadingSceleton caller={4} />;
+  }
 
   return <TimeTableElement data={data} />;
 }
