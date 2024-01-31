@@ -17,6 +17,18 @@ const NO_RESULTS = [
   },
 ];
 
+/**
+ * Main component for displaying location results
+ * from the /api/location endpoint.
+ *
+ * It uses React Query to fetch data from the endpoint
+ * based on the search value keyword.
+ *
+ * Fallback strategy is to display "No results found".
+ *
+ * @TODO integreate with useDebounce hook
+ * @returns React.ReactNode
+ */
 function LocationResults() {
   const {
     state: { showLocations, searchValue },
@@ -34,7 +46,7 @@ function LocationResults() {
 
   const handleDispatch = (name: string) => {
     dispatch({
-      type: "locationSelection",
+      type: "LOCATION_SELECTION",
       payload: {
         name,
       },

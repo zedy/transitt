@@ -6,6 +6,17 @@ type FlexWrapperProperties = {
   classes?: string;
 };
 
+/**
+ * Presentational component used a the main DIV wrapper component
+ * throughout the app. I mainly use FLEX for layouting, so this
+ * component is used a lot.
+ *
+ * Additionally a similar GRID component can be made but this app
+ * doesn't need it at the moment.
+ *
+ * @params @see FlexWrapperProperties
+ * @returns React.ReactNode
+ */
 export default function FlexWrapper({
   children,
   classes = "",

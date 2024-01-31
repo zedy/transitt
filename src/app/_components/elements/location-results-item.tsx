@@ -1,12 +1,22 @@
 import React from "react";
 
-function LocationResultItem({
-  name,
-  dispatch,
-}: {
+type Properties = {
   name: string;
   dispatch?: (argument1: string) => void;
-}) {
+};
+
+/**
+ * This component is used to render location results from
+ * the /api/locations endpoint.
+ *
+ * It's a child component of LocationResults component, and
+ * represents a single location result.
+ *
+ * @param name string
+ * @param dispatch function
+ * @returns React.ReactNode
+ */
+function LocationResultItem({ name, dispatch }: Properties) {
   const handleClick = () => {
     dispatch?.(name);
   };

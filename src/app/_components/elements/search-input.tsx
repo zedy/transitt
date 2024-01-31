@@ -30,7 +30,7 @@ export default function Input({
   const handleOnChange = async (event: React.BaseSyntheticEvent) => {
     setValue(event.target.value);
     dispatch({
-      type: "searchValue",
+      type: "SEARCH_VALUE",
       payload: {
         searchValue: event.target.value,
       },
@@ -44,7 +44,7 @@ export default function Input({
 
   const handleLocationToggle = useCallback((searchValue: string) => {
     dispatch({
-      type: "showLocations",
+      type: "SHOW_LOCATIONS",
       payload: {
         showLocations: searchValue,
       },

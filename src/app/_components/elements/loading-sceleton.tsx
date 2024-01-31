@@ -1,6 +1,11 @@
 import React from "react";
 import FlexWrapper from "./flex-wrapper";
 
+/**
+ * Presentational component.
+ *
+ * @returns React.ReactNode
+ */
 function Sceleton() {
   return (
     <FlexWrapper
@@ -27,7 +32,15 @@ function Sceleton() {
   );
 }
 
-function LoadingSceleton({ caller }: { caller: number }) {
+/**
+ * The caller is the number of sceletons to be rendered.
+ *
+ * The default/min value is 1.
+ *
+ * @param caller number
+ * @returns React.ReactNode
+ */
+function LoadingSceleton({ caller = 1 }: { caller: number }) {
   const sceletons = [];
 
   for (let index = 0; index < caller; index += 1) {
