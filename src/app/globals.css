@@ -25,3 +25,12 @@ body {
     text-wrap: balance;
   }
 }
+
+/* CUSTOM OVERRIDES */
+.ant-picker-input > input::placeholder {
+  color: white !important;
+}
+
+.ant-btn {
+  background-color: #374151 !important;
+}

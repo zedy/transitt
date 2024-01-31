@@ -8,7 +8,7 @@ export type LocationDataItem = {
 
 export type LocationData = Array<LocationDataItem> | undefined;
 
-type Action = {
+export type Action = {
   type: string;
   payload: {
     [key: string]: string;
@@ -46,19 +46,37 @@ const INITIAL_STATE = {
 
 const contextReducer = (state: StateProperties, action: Action) => {
   switch (action.type) {
-    case "searchValue": {
+    case "SET_DATE": {
+      return {
+        ...state,
+        search: {
+          ...state.search,
+          date: action.payload?.date,
+        },
+      };
+    }
+    case "SET_TIME": {
+      return {
+        ...state,
+        search: {
+          ...state.search,
+          time: action.payload?.time,
+        },
+      };
+    }
+    case "SEARCH_VALUE": {
       return {
         ...state,
         searchValue: action.payload?.searchValue,
       };
     }
-    case "showLocations": {
+    case "SHOW_LOCATIONS": {
       return {
         ...state,
         showLocations: action.payload?.showLocations,
       };
     }
-    case "locationSelection": {
+    case "LOCATION_SELECTION": {
       const key = state.showLocations.toLowerCase();
 
       return {
