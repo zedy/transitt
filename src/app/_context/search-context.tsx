@@ -74,6 +74,7 @@ const contextReducer = (state: StateProperties, action: Action) => {
         search: {
           ...state.search,
           date: action.payload?.date,
+          page: 0, // always reset page when date changes
         },
       };
     }
@@ -83,6 +84,7 @@ const contextReducer = (state: StateProperties, action: Action) => {
         search: {
           ...state.search,
           time: action.payload?.time,
+          page: 0, // always reset page when time changes
         },
       };
     }
@@ -108,6 +110,7 @@ const contextReducer = (state: StateProperties, action: Action) => {
         search: {
           ...state.search,
           [key]: action.payload?.name,
+          page: 0, // always reset page when time changes
         },
       };
     }
