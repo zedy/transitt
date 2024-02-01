@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Toaster } from "react-hot-toast";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "@/app/providers";
@@ -20,6 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} bg-gray-600`}>
         <Providers>{children}</Providers>
+        <Toaster />
       </body>
     </html>
   );

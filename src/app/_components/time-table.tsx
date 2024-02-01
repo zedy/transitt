@@ -11,10 +11,10 @@ export default function TimeTable() {
   const {
     state: { search },
   } = useContext(SearchContext);
-  const { from, to, date, time } = search;
+  const { from, to, date, time, page } = search;
 
   const { data, isFetching } = useQuery({
-    queryKey: ["transitData", from, to, date, time],
+    queryKey: ["transitData", from, to, date, time, page],
     queryFn: () => getTransitRoute(search),
     enabled: !!from && !!to,
     select: (response) => {

@@ -10,8 +10,8 @@ export type LocationData = Array<LocationDataItem> | undefined;
 
 export type Action = {
   type: string;
-  payload: {
-    [key: string]: string | (() => void);
+  payload?: {
+    [key: string]: string | number | ((argument1?: string) => void);
   };
 };
 
@@ -21,10 +21,11 @@ type StateProperties = {
     to: string;
     date: string;
     time: string;
+    page: number;
   };
   showLocations: string;
   searchValue: string;
-  locationCallback: (name: string) => void;
+  locationCallback: (name: string) => void | undefined;
 };
 
 type ContextProperties = {
@@ -40,14 +41,33 @@ const INITIAL_STATE = {
     to: "",
     date: "",
     time: "",
+    page: 0,
   },
   showLocations: "",
   searchValue: "",
-  locationCallback: () => {},
+  locationCallback: undefined,
 };
 
 const contextReducer = (state: StateProperties, action: Action) => {
   switch (action.type) {
+    case "PAGINATION_INCREMENT": {
+      return {
+        ...state,
+        search: {
+          ...state.search,
+          page: state.search.page + 1,
+        },
+      };
+    }
+    case "PAGINATION_DECREMENT": {
+      return {
+        ...state,
+        search: {
+          ...state.search,
+          page: state.search.page > 0 ? state.search.page - 1 : 0,
+        },
+      };
+    }
     case "SET_DATE": {
       return {
         ...state,
@@ -105,15 +125,9 @@ export function SearchContextProvider({
   children: React.ReactNode;
 }>) {
   const [state, dispatch] = useReducer(contextReducer, INITIAL_STATE);
-  const [inputFrom, setInputFrom] = React.useState<string>("");
-  const [inputTo, setInputTo] = React.useState<string>("");
 
   const provide = React.useMemo(
     () => ({
-      // inputFrom,
-      // inputTo,
-      // setInputFrom,
-      // setInputTo,
       state,
       dispatch,
     }),

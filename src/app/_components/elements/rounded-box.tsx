@@ -8,10 +8,14 @@
  */
 export default function RoundedBox({
   children,
+  className,
 }: Readonly<{
   children: React.ReactNode;
+  className?: string;
 }>) {
   return (
-    <div className="relative rounded-2xl bg-gray-700 shadow-lg">{children}</div>
+    <div className={`relative rounded-2xl bg-gray-700 shadow-lg ${className}`}>
+      {children}
+    </div>
   );
 }

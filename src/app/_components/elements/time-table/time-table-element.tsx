@@ -1,16 +1,20 @@
 "use client";
 
+import { useCallback, useContext } from "react";
 import {
   calculateJourneyTime,
   createKeyFromProperties,
   getTime,
 } from "@/app/_lib/transit-route-helpers";
 import Image from "next/image";
+import { SearchContext } from "@/app/_context/search-context";
+import toast from "react-hot-toast";
 import TimeTableJourneytRoute from "./time-table-journeyt-route";
 import FlexWrapper from "../flex-wrapper";
 import Typography, {
   TypographyType,
 } from "../../typography/typography-element";
+import TimeTableCard from "./time-table-card";
 
 // TODO: do i need this?
 const TRAIN_CATEGORIES = [
@@ -50,14 +54,44 @@ function getTransportCategoryIcon(category: string) {
 
 // TODO: typesafety
 export default function TimeTableElement({ data }) {
+  const { state, dispatch } = useContext(SearchContext);
+
+  const handleEarlierConnectionOnClick = useCallback(() => {
+    if (state.search.page === 0) {
+      toast.error("No earlier connections available");
+      return;
+    }
+
+    dispatch({
+      type: "PAGINATION_DECREMENT",
+    });
+  }, []);
+
+  const handleLaterConnectionOnClick = useCallback(() => {
+    if (state.search.page === 3) {
+      toast.error("No later connections available");
+      return;
+    }
+
+    dispatch({
+      type: "PAGINATION_INCREMENT",
+    });
+  }, []);
+
   return (
     <FlexWrapper flexDirection="col">
+      {data && (
+        <TimeTableCard
+          label="Show earlier connections"
+          onClick={handleEarlierConnectionOnClick}
+        />
+      )}
       {data?.map((item) => {
         return (
           <FlexWrapper
             flexDirection="col"
             key={createKeyFromProperties(item)}
-            classes="mb-2 w-full scale-100 cursor-pointer rounded-lg bg-gray-700 p-4 shadow-lg transition-all duration-200 hover:scale-105"
+            classes="my-2 w-full scale-100 cursor-pointer rounded-lg bg-gray-700 p-4 shadow-lg transition-all duration-200 hover:scale-105"
           >
             <FlexWrapper justifyContent="between">
               <FlexWrapper>
@@ -102,6 +136,12 @@ export default function TimeTableElement({ data }) {
           </FlexWrapper>
         );
       })}
+      {data && (
+        <TimeTableCard
+          label="Show later connections"
+          onClick={handleLaterConnectionOnClick}
+        />
+      )}
     </FlexWrapper>
   );
 }

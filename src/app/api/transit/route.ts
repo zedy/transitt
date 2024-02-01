@@ -7,6 +7,7 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const from = searchParams.get("from");
   const to = searchParams.get("to");
+  const page = searchParams.get("page");
   let date = searchParams.get("date");
   let time = searchParams.get("time");
 
@@ -35,6 +36,8 @@ export async function GET(request: NextRequest) {
         to,
         date,
         time,
+        limit: 5,
+        page: page || 0,
       },
     },
   });

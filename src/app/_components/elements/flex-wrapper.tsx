@@ -1,4 +1,4 @@
-type FlexWrapperProperties = {
+export type FlexWrapperProperties = {
   children: React.ReactNode;
   flexDirection?: "row" | "col";
   justifyContent?: "start" | "center" | "end" | "between" | "around";

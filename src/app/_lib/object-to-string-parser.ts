@@ -5,7 +5,9 @@
  * @param object Record<string, string>
  * @returns string
  */
-export default function objectToQueryString(object: Record<string, string>) {
+export default function objectToQueryString(
+  object: Record<string, string | number>,
+) {
   return Object.keys(object)
     .filter(
       (key) =>
