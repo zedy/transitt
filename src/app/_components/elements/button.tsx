@@ -6,6 +6,7 @@ type ButtonProperties = {
   onMouseDown?: (event: React.BaseSyntheticEvent) => void;
   icon?: React.ReactNode | undefined;
   className?: string;
+  type?: "button" | "submit";
 };
 
 const DEFAULT_CLASS =
@@ -29,12 +30,13 @@ export default function Button({
   className,
   onMouseDown,
   onClick,
+  type = "button",
 }: ButtonProperties) {
   return (
     <button
       onClick={onClick}
       onMouseDown={onMouseDown}
-      type="button"
+      type={type === "submit" ? "submit" : "button"}
       className={classParser(DEFAULT_CLASS, className)}
     >
       {icon}

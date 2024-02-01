@@ -2,6 +2,7 @@ import { SettingOutlined } from "@ant-design/icons";
 import { useCallback, useState } from "react";
 import Button from "../button";
 import Modal from "../modal";
+import SearchSettingsForm from "../forms/search-settings-form";
 
 export default function AdditionalFilters() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,7 +24,7 @@ export default function AdditionalFilters() {
         isOpen={isModalOpen}
         title="Settings"
       >
-        <div>form goes here</div>
+        <SearchSettingsForm />
       </Modal>
     </>
   );
