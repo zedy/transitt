@@ -79,8 +79,8 @@ export default function TimeTableElement({ data }) {
   }, []);
 
   return (
-    <FlexWrapper flexDirection="col">
-      {data && (
+    <FlexWrapper flexDirection="col" classes="mb-16">
+      {data && state.search.page > 0 && (
         <TimeTableCard
           label="Show earlier connections"
           onClick={handleEarlierConnectionOnClick}
@@ -136,7 +136,7 @@ export default function TimeTableElement({ data }) {
           </FlexWrapper>
         );
       })}
-      {data && (
+      {data && state.search.page < 4 && (
         <TimeTableCard
           label="Show later connections"
           onClick={handleLaterConnectionOnClick}
