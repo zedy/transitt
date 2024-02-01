@@ -1,5 +1,3 @@
-- replace div.flex with flex component
-- replace span, p etc with typography component
 - create the expanded Transit view for each element
 - add typesafety to Transit components
 - add filter buttons

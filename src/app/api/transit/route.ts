@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
         to,
         date,
         time,
-        limit: 5,
+        limit: 4,
         page: page || 0,
       },
     },

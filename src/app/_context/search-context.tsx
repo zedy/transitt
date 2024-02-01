@@ -50,6 +50,17 @@ const INITIAL_STATE = {
 
 const contextReducer = (state: StateProperties, action: Action) => {
   switch (action.type) {
+    case "SWAP_LOCATIONS": {
+      return {
+        ...state,
+        search: {
+          ...state.search,
+          from: state.search.to,
+          to: state.search.from,
+          page: 0, // always reset page when locations are swapped
+        },
+      };
+    }
     case "PAGINATION_INCREMENT": {
       return {
         ...state,
