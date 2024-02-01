@@ -22,6 +22,7 @@ export default function RootLayout({
       <body className={`${inter.className} bg-gray-600`}>
         <Providers>{children}</Providers>
         <Toaster />
+        <div id="modal-root" />
       </body>
     </html>
   );
