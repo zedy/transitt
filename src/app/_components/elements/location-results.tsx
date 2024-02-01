@@ -4,7 +4,7 @@ import {
   type LocationDataItem,
   SearchContext,
 } from "@/app/_context/search-context";
-import React, { useContext } from "react";
+import React, { useCallback, useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import getLocation from "@/app/_services/get-location";
 import LocationResultItem from "./location-results-item";
@@ -44,14 +44,14 @@ function LocationResults() {
     placeholderData: NO_RESULTS,
   });
 
-  const handleDispatch = (name: string) => {
+  const handleDispatch = useCallback((name: string) => {
     dispatch({
       type: "LOCATION_SELECTION",
       payload: {
         name,
       },
     });
-  };
+  }, []);
 
   return (
     <FlexWrapper>

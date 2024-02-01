@@ -5,7 +5,9 @@ import { SearchContext } from "@/app/_context/search-context";
 import SearchInputWrapper from "./search-input-wrapper";
 
 export default function SearchConnectionsWrapper() {
-  const { showLocations } = useContext(SearchContext);
+  const {
+    state: { showLocations },
+  } = useContext(SearchContext);
 
   return (
     <div

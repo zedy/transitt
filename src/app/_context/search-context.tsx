@@ -11,7 +11,7 @@ export type LocationData = Array<LocationDataItem> | undefined;
 export type Action = {
   type: string;
   payload: {
-    [key: string]: string;
+    [key: string]: string | (() => void);
   };
 };
 
@@ -24,6 +24,7 @@ type StateProperties = {
   };
   showLocations: string;
   searchValue: string;
+  locationCallback: (name: string) => void;
 };
 
 type ContextProperties = {
@@ -42,6 +43,7 @@ const INITIAL_STATE = {
   },
   showLocations: "",
   searchValue: "",
+  locationCallback: () => {},
 };
 
 const contextReducer = (state: StateProperties, action: Action) => {
@@ -74,10 +76,12 @@ const contextReducer = (state: StateProperties, action: Action) => {
       return {
         ...state,
         showLocations: action.payload?.showLocations,
+        locationCallback: action.payload?.callback,
       };
     }
     case "LOCATION_SELECTION": {
       const key = state.showLocations.toLowerCase();
+      state.locationCallback(action.payload?.name as string);
 
       return {
         ...state,
@@ -101,9 +105,15 @@ export function SearchContextProvider({
   children: React.ReactNode;
 }>) {
   const [state, dispatch] = useReducer(contextReducer, INITIAL_STATE);
+  const [inputFrom, setInputFrom] = React.useState<string>("");
+  const [inputTo, setInputTo] = React.useState<string>("");
 
   const provide = React.useMemo(
     () => ({
+      // inputFrom,
+      // inputTo,
+      // setInputFrom,
+      // setInputTo,
       state,
       dispatch,
     }),

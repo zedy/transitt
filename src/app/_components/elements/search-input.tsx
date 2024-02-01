@@ -1,8 +1,7 @@
 "use client";
 
 /* eslint-disable react/jsx-props-no-spreading */
-import type React from "react";
-import { useCallback, useContext } from "react";
+import React, { useCallback, useContext } from "react";
 import classParser from "@/app/_lib/class-parser";
 import { CloseOutlined } from "@ant-design/icons";
 import { SearchContext } from "@/app/_context/search-context";
@@ -13,59 +12,34 @@ interface InputProperties {
   className?: string;
   value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
+  onChange?: (event: React.BaseSyntheticEvent) => void;
+  onBlur?: (event: React.BaseSyntheticEvent) => void;
+  onFocus?: (argument1: string) => void;
 }
 
 const DEFAULT_CLASS = "relative z-1";
 
-export default function Input({
+function Input({
   label,
   value,
   setValue,
+  onFocus,
   ...properties
 }: InputProperties) {
-  const { dispatch } = useContext(SearchContext);
+  // const { dispatch } = useContext(SearchContext);
   const { className } = properties;
   const classes = classParser(DEFAULT_CLASS, className);
-
-  const handleOnChange = async (event: React.BaseSyntheticEvent) => {
-    setValue(event.target.value);
-    dispatch({
-      type: "SEARCH_VALUE",
-      payload: {
-        searchValue: event.target.value,
-      },
-    });
-  };
 
   const handleReset = useCallback((event: React.BaseSyntheticEvent) => {
     event.preventDefault();
     setValue("");
   }, []);
 
-  const handleLocationToggle = useCallback((searchValue: string) => {
-    dispatch({
-      type: "SHOW_LOCATIONS",
-      payload: {
-        showLocations: searchValue,
-      },
-    });
-  }, []);
-
-  const handleOnBlur = useCallback((event: React.BaseSyntheticEvent) => {
-    event.preventDefault();
-
-    setTimeout(() => {
-      handleLocationToggle("");
-    }, 0);
-  }, []);
-
   return (
     <div className={classes}>
       <input
         {...properties}
-        onChange={handleOnChange}
-        onBlur={handleOnBlur}
-        onFocus={() => handleLocationToggle(label)}
+        onFocus={() => onFocus && onFocus(label)}
         value={value}
         placeholder={label}
         type="input"
@@ -80,3 +54,5 @@ export default function Input({
     </div>
   );
 }
+
+export default React.memo(Input);

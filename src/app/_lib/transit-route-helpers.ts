@@ -89,9 +89,9 @@ export const calculateJourneyProgress = (
   arrival: string,
 ) => {
   const now = new Date();
-  const startTime = dayjs(departure, "HH:mm");
-  const endTime = dayjs(arrival, "HH:mm");
-  const currentTime = dayjs(now, "HH:mm");
+  const startTime = dayjs(departure);
+  const endTime = dayjs(arrival);
+  const currentTime = dayjs(now);
   const totalDuration = endTime.diff(startTime, "minute");
   const elapsedTime = currentTime.diff(startTime, "minute");
   const progress = Math.ceil(
@@ -109,7 +109,7 @@ export const calculateJourneyProgress = (
  * @returns Array<number>
  */
 export const calculateTransferPointPositions = (
-  sections: Array<Record<string, string>>,
+  sections: Array<Record<string, Record<string, string>>>,
 ) => {
   const limit = sections.length;
   const transitDuration: Array<number> = [];
@@ -118,8 +118,8 @@ export const calculateTransferPointPositions = (
   let totalTimeInTransit = 0;
 
   for (let index = 0; index < limit; index += 1) {
-    const startTime = sections[index].departure;
-    const endTime = sections[index].arrival;
+    const startTime = sections[index].departure.departure;
+    const endTime = sections[index].arrival.arrival;
     const totalDuration = diffTime(startTime, endTime);
 
     transitDuration.push(totalDuration);

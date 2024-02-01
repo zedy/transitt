@@ -32,8 +32,12 @@ function Transfer({ position }: { position: number }) {
   );
 }
 
+type Properties = {
+  item: any;
+};
+
 // TODO: typesafety
-function CalculateRouteAndTrasnfers({ item }) {
+function CalculateRouteAndTrasnfers({ item }: Properties) {
   const { transfers, sections, from, to } = item;
   const transferSegments = [];
   const now = new Date();
