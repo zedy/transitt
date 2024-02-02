@@ -8,6 +8,8 @@ export async function GET(request: NextRequest) {
   const from = searchParams.get("from");
   const to = searchParams.get("to");
   const page = searchParams.get("page");
+  const sleeper = searchParams.get("sleeper");
+  const bike = searchParams.get("bike");
   let date = searchParams.get("date");
   let time = searchParams.get("time");
 
@@ -36,6 +38,8 @@ export async function GET(request: NextRequest) {
         to,
         date,
         time,
+        bike,
+        sleeper,
         limit: 4,
         page: page || 0,
       },

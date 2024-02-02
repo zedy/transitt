@@ -11,10 +11,10 @@ export default function TimeTable() {
   const {
     state: { search },
   } = useContext(SearchContext);
-  const { from, to, date, time, page } = search;
+  const { from, to, date, time, page, bike, sleeper } = search;
 
   const { data, isFetching } = useQuery({
-    queryKey: ["transitData", from, to, date, time, page],
+    queryKey: ["transitData", from, to, date, time, page, bike, sleeper],
     queryFn: () => getTransitRoute(search),
     enabled: !!from && !!to,
     select: (response) => {
@@ -23,6 +23,7 @@ export default function TimeTable() {
       return connections;
     },
   });
+  console.log(search);
 console.log(data);
   if (isFetching) {
     return <LoadingSceleton caller={4} />;

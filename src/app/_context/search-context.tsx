@@ -22,6 +22,8 @@ type StateProperties = {
     date: string;
     time: string;
     page: number;
+    sleeper: number;
+    bike: number;
   };
   showLocations: string;
   searchValue: string;
@@ -42,6 +44,8 @@ const INITIAL_STATE = {
     date: "",
     time: "",
     page: 0,
+    sleeper: 0,
+    bike: 0,
   },
   showLocations: "",
   searchValue: "",
@@ -50,6 +54,25 @@ const INITIAL_STATE = {
 
 const contextReducer = (state: StateProperties, action: Action) => {
   switch (action.type) {
+    case "SET_ADDITIONAL_SETTINGS": {
+      return {
+        ...state,
+        search: {
+          ...state.search,
+          ...action.payload,
+        },
+      };
+    }
+    case "RESET_ADDITIONAL_SETTINGS": {
+      return {
+        ...state,
+        search: {
+          ...state.search,
+          sleeper: 0,
+          bike: 0,
+        },
+      };
+    }
     case "SWAP_LOCATIONS": {
       return {
         ...state,
