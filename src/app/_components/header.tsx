@@ -1,6 +1,7 @@
 import Image from "next/image";
 import FlexWrapper from "./elements/flex-wrapper";
 import Typography, { TypographyType } from "./typography/typography-element";
+import ThemeChanger from "./elements/theme-changer";
 
 export default function Header() {
   return (
@@ -25,7 +26,7 @@ export default function Header() {
             Transitt
           </Typography>
         </FlexWrapper>
-        <div>test</div>
+        <ThemeChanger />
       </FlexWrapper>
     </header>
   );

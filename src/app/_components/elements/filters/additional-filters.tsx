@@ -51,7 +51,7 @@ export default function AdditionalFilters() {
 
   return (
     <>
-      <FlexWrapper classes="w-auto relative">
+      <FlexWrapper classes="!w-12 relative">
         {appliedSettings && (
           <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-red-500" />
         )}
