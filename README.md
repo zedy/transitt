@@ -82,3 +82,6 @@ Is handled by Vercel. Just push to the `main` branch and it will trigger a web h
 - add OAuth (just for fun, we don't really need it)
 - create a deploy hook on Vercel (so that a deploy can be trigger by a unique webhook)
 - write tests (see if we can use vitest outside of vite)
+
+## Known Bugs
+- when pressing the swap button to change the destination and origin the app will process the request and display the accurate data but will keep the location names [**expected**: the strings within the search input fields should swap palces as well]
