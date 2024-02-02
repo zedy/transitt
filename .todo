@@ -1,3 +1,5 @@
 - create the expanded Transit view for each element
-- add typesafety to Transit components
-- add filter buttons
+- integrate the Theme context
+- add i18 support
+- add OAuth (just for fun, we don't really need it)
+- create a deploy hook on Vercel (so that a deploy can be trigger by a unique webhook)
