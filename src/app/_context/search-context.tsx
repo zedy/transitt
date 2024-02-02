@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useReducer } from "react";
+import React, { type Dispatch, type SetStateAction, useReducer } from "react";
 
 export type LocationDataItem = {
   [key: string]: string | number;
@@ -11,7 +11,7 @@ export type LocationData = Array<LocationDataItem> | undefined;
 export type Action = {
   type: string;
   payload?: {
-    [key: string]: string | number | ((argument1?: string) => void);
+    [key: string]: string | number | Dispatch<SetStateAction<string>>;
   };
 };
 
@@ -27,7 +27,7 @@ type StateProperties = {
   };
   showLocations: string;
   searchValue: string;
-  locationCallback: (name: string) => void | undefined;
+  locationCallback: Dispatch<SetStateAction<string>>;
 };
 
 type ContextProperties = {
@@ -161,6 +161,7 @@ export function SearchContextProvider({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // @ts-expect-error: didn't have time to figure this one out
   const [state, dispatch] = useReducer(contextReducer, INITIAL_STATE);
 
   const provide = React.useMemo(

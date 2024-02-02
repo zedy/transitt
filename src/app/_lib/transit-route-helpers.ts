@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { type Connection, type ConnectionSection } from "../_types/api";
 
 /**
  * Helper functions for various types of calculations for transit routes
@@ -66,11 +67,11 @@ export const parseStrings = (value: string | number) => {
  * @param item
  * @returns string
  */
-export const createKeyFromProperties = (item: any) => {
+export const createKeyFromProperties = (item: Connection) => {
   const { from, to } = item;
-  const fromSt = parseStrings(from.location.name);
+  const fromSt = parseStrings(from.location.name as string);
   const departure = parseStrings(from.departureTimestamp);
-  const toSt = parseStrings(to.location.name);
+  const toSt = parseStrings(to.location.name as string);
   const arrival = parseStrings(to.arrivalTimestamp);
 
   return `${fromSt}-${departure}-${toSt}-${arrival}`;
@@ -109,7 +110,7 @@ export const calculateJourneyProgress = (
  * @returns Array<number>
  */
 export const calculateTransferPointPositions = (
-  sections: Array<Record<string, Record<string, string>>>,
+  sections: Array<ConnectionSection>,
 ) => {
   const limit = sections.length;
   const transitDuration: Array<number> = [];
@@ -120,7 +121,7 @@ export const calculateTransferPointPositions = (
   for (let index = 0; index < limit; index += 1) {
     const startTime = sections[index].departure.departure;
     const endTime = sections[index].arrival.arrival;
-    const totalDuration = diffTime(startTime, endTime);
+    const totalDuration = diffTime(startTime as string, endTime as string);
 
     transitDuration.push(totalDuration);
     totalTimeInTransit += totalDuration;

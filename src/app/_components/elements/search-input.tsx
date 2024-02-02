@@ -1,10 +1,9 @@
 "use client";
 
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useCallback, useContext } from "react";
+import React, { useCallback } from "react";
 import classParser from "@/app/_lib/class-parser";
 import { CloseOutlined } from "@ant-design/icons";
-import { SearchContext } from "@/app/_context/search-context";
 import Button from "./button";
 
 interface InputProperties {
@@ -26,7 +25,6 @@ function Input({
   onFocus,
   ...properties
 }: InputProperties) {
-  // const { dispatch } = useContext(SearchContext);
   const { className } = properties;
   const classes = classParser(DEFAULT_CLASS, className);
 

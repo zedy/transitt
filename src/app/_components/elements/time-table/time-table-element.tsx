@@ -9,11 +9,12 @@ import {
 import Image from "next/image";
 import { SearchContext } from "@/app/_context/search-context";
 import toast from "react-hot-toast";
-import TimeTableJourneytRoute from "./time-table-journeyt-route";
-import FlexWrapper from "../flex-wrapper";
+import { type Connections } from "@/app/_types/api";
 import Typography, {
   TypographyType,
-} from "../../typography/typography-element";
+} from "@/app/_components/typography/typography-element";
+import TimeTableJourneytRoute from "./time-table-journeyt-route";
+import FlexWrapper from "../flex-wrapper";
 import TimeTableCard from "./time-table-card";
 
 // TODO: do i need this?
@@ -52,8 +53,11 @@ function getTransportCategoryIcon(category: string) {
   }
 }
 
-// TODO: typesafety
-export default function TimeTableElement({ data }) {
+type ComponentProperties = {
+  data: Connections;
+};
+
+export default function TimeTableElement({ data }: ComponentProperties) {
   const { state, dispatch } = useContext(SearchContext);
 
   const handleEarlierConnectionOnClick = useCallback(() => {
@@ -96,7 +100,7 @@ export default function TimeTableElement({ data }) {
             <FlexWrapper justifyContent="between">
               <FlexWrapper>
                 <Image
-                  src={`/${getTransportCategoryIcon(item.sections[0].journey.category)}.svg`}
+                  src={`/${getTransportCategoryIcon(item.sections[0].journey.category as string)}.svg`}
                   alt="transport-icon"
                   width={24}
                   height={24}

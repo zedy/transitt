@@ -1,4 +1,6 @@
-export default async function getDataFromRoute(callback) {
+export default async function getDataFromRoute(
+  callback: () => Promise<Response>,
+) {
   try {
     const fetchResult = await callback();
 

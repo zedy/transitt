@@ -4,6 +4,7 @@ import {
   diffTime,
 } from "@/app/_lib/transit-route-helpers";
 import React from "react";
+import { type Connection } from "@/app/_types/api";
 import FlexWrapper from "../flex-wrapper";
 
 function Segment() {
@@ -33,7 +34,7 @@ function Transfer({ position }: { position: number }) {
 }
 
 type Properties = {
-  item: any;
+  item: Connection;
 };
 
 // TODO: typesafety

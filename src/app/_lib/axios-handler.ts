@@ -18,6 +18,7 @@ export default async function axiosHandler(configObject: ConfigProperties) {
   const controller = new AbortController();
 
   try {
+    // @ts-expect-error fallback
     const response = await axiosInstance[method.toLowerCase()](url, {
       ...requestConfig,
       signal: controller.signal,
